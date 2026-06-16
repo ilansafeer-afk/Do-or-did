@@ -11,14 +11,29 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Build APK from HTML
-        uses: darkshredder/website-to-apk-action@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          build-folder-path: '.' 
-          app-name: 'UltraPlanApp'
+          node-version: 18
+
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      - name: Initialize and Build APK
+        run: |
+          # Automate bubblewrap inputs to generate your Android project
+          echo -e "\n\n\n\n\n\n" | bubblewrap init --manifest=https://ilansafeer-afk.github.io/Run-app/manifest.json || true
+          # If your repository isn't hosted live yet, we will bypass it safely:
+          mkdir -p apk
+          # Use a direct fallback build configuration
+          npx @capacitor/cli init "UltraPlanApp" "com.ilansafeer.ultraplan" --web-dir=.
+          npm install @capacitor/android
+          npx cap add android
+          cd android && ./gradlew assembleDebug
+          cp app/build/outputs/apk/debug/app-debug.apk ../apk/UltraPlanApp.apk
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-android-app
-          path: apk/
+          path: apk/UltraPlanApp.apk
