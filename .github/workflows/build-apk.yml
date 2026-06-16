@@ -14,13 +14,12 @@ jobs:
       - name: Build Web to APK
         uses: lowcarbrob/action-home-app@v1.1
         with:
-          # This automatically packages whatever HTML is in your root folder
-          app-name: "UltraPlan"
+          app-name: "DoOrDid"
           activity-name: "MainActivity"
-          package-name: "com.ilansafeer.runapp"
+          package-name: "com.ilansafeer.doordid"
 
       - name: Save APK File
         uses: actions/upload-artifact@v4
         with:
-          name: Run-App-APK
+          name: Do-Or-Did-APK
           path: ./*.apk
