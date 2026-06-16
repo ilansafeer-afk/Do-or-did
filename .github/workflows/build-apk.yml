@@ -1,0 +1,24 @@
+name: Convert Web Files to APK
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Build APK from HTML
+        uses: darkshredder/website-to-apk-action@master
+        with:
+          build-folder-path: '.' 
+          app-name: 'UltraPlanApp'
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-android-app
+          path: apk/
