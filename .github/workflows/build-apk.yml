@@ -14,12 +14,12 @@ jobs:
       - name: Build Web to APK
         uses: lowcarbrob/action-home-app@v1.1
         with:
-          app-name: "DoOrDid"
+          app-name: "DoOrdid"
           activity-name: "MainActivity"
           package-name: "com.ilansafeer.doordid"
 
       - name: Save APK File
         uses: actions/upload-artifact@v4
         with:
-          name: Do-Or-Did-APK
+          name: Do-Or-did-APK
           path: ./*.apk
